@@ -13,31 +13,6 @@ Renderer::Renderer()
 
 void Renderer::Draw(HDC hdc, Object* object)
 {
-	HPEN hNPen = CreatePen(PS_SOLID, 1, object->color);
-	HPEN hOPen = (HPEN)SelectObject(hdc, hNPen);
-	HBRUSH hOldBrush;
-	HBRUSH hNewBrush;
-	if (1)
-	{
-		hNewBrush = CreateSolidBrush(object->color);
-		hOldBrush = (HBRUSH)SelectObject(hdc, hNewBrush);
-	}
-	else
-	{
-		hNewBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
-		hOldBrush = (HBRUSH)SelectObject(hdc, hNewBrush);
-	}
-
-	Vec2d TPos = T(object->getPos());
-
-	// Win API function
-	Ellipse(hdc,
-		TPos[0] - object->radius,
-		TPos[1] + object->radius,
-		TPos[0] + object->radius,
-		TPos[1] - object->radius);
-	DeleteObject(SelectObject(hdc, hOPen));
-	DeleteObject(SelectObject(hdc, hOldBrush));
 }
 
 void Renderer::DrawGrid(HDC hdc, int resolution)

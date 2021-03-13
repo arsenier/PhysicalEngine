@@ -2,6 +2,9 @@
 
 #include <gmtl/gmtl.h>
 #include <Windows.h>
+#include "Renderer.h"
+
+class Renderer;
 
 using namespace gmtl;
 
@@ -14,7 +17,6 @@ public:
 
 	double mass;
 
-	double radius;
 	uint32_t color;
 	
 	void Nullify();
@@ -24,8 +26,6 @@ public:
 	Object(Object& object);
 	Object(Vec2d _Position, Vec2d _Velocity = Vec2d(0, 0));
 
-	Vec2d getPos();
-	double getRad();
-	uint32_t getColor();
+	virtual void draw(HDC, Renderer*) = 0;
 };
 
