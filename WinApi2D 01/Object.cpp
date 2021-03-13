@@ -9,10 +9,7 @@ void Object::Nullify()
 	color = 0xFFFFFF;
 }
 
-Object::Object()
-{
-	Nullify();
-}
+Object::Object(){}
 
 Object::Object(Object& object)
 {
@@ -23,9 +20,11 @@ Object::Object(Object& object)
 	this->color = object.color;
 }
 
-Object::Object(Vec2d _Position, Vec2d _Velocity)
+Object::Object(Vec2d _Position, Vec2d _Velocity, double _mass, COLORREF _color)
 {
-	Nullify();
 	this->Position = _Position;
 	this->Velocity = _Velocity;
+	this->Force = Vec2d(0, 0);
+	this->mass = _mass;
+	this->color = _color;
 }

@@ -13,6 +13,7 @@ Renderer::Renderer()
 
 void Renderer::Draw(HDC hdc, Object* object)
 {
+
 }
 
 void Renderer::DrawGrid(HDC hdc, int resolution)

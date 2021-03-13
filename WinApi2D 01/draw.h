@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include "Object.h"
 
 const int Height = 800;
 const int Width = 800;

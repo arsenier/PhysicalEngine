@@ -2,9 +2,7 @@
 
 #include <gmtl/gmtl.h>
 #include <Windows.h>
-#include "Renderer.h"
-
-class Renderer;
+#include "draw.h"
 
 using namespace gmtl;
 
@@ -17,15 +15,17 @@ public:
 
 	double mass;
 
-	uint32_t color;
+	COLORREF color;
 	
 	void Nullify();
 
 public:
 	Object();
 	Object(Object& object);
-	Object(Vec2d _Position, Vec2d _Velocity = Vec2d(0, 0));
+	Object(Vec2d _Position, Vec2d _Velocity = Vec2d(0, 0), double mass = 1, COLORREF color = 0xFFFFFF);
 
-	virtual void draw(HDC, Renderer*) = 0;
+	virtual ~Object() {}
+
+	virtual void draw() = 0;
 };
 
