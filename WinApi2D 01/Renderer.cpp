@@ -2,7 +2,7 @@
 
 Vec2d Renderer::T(Vec2d vec)
 {
-	return Vec2d(Width/2, Height/2) + Vec2d(vec[0], -vec[1]) * scale - Vec2d(camera[0], -camera[1]);
+	return Vec2d(Width/2, Height/2) + (Vec2d(vec[0], -vec[1]) - Vec2d(camera[0], -camera[1])) * scale;
 }
 
 double Renderer::T(double scalar)
@@ -13,7 +13,7 @@ double Renderer::T(double scalar)
 Renderer::Renderer()
 {
 	camera = Vec2d(0, 0);
-	scale = 1;
+	scale = 2;
 }
 
 void Renderer::move(Vec2d offset)
@@ -40,6 +40,7 @@ void Renderer::DrawGrid(HDC hdc, int resolution)
 	putline(vstubWidthG / 2, 0, vstubWidthG / 2, vstubHeightG);
 	drawline(0, vstubHeightG / 2, vstubWidthG, vstubHeightG / 2);*/
 
+	resolution *= scale;
 	setcolor(0x606060);
 
 	Vec2d origin(0,0);
