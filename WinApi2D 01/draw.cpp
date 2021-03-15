@@ -1,16 +1,9 @@
-#include "draw.h"
 #include <math.h>
-#include "Circle.h"
-#include "PhysicsWorld.h"
+#include "draw.h"
 
 HWND hWndMain;
 HDC hdcMain;
 HBITMAP hbmMain;
-enum
-{
-	physTimer = 1,
-	graphTimer
-};
 
 void setcolor(COLORREF color, COLORREF fill)
 {
@@ -46,7 +39,12 @@ void putarc(int x, int y, int radius, float StartAngle, float SweepAngle)
 	}
 }
 
-void clrscr(COLORREF color = 0x222222)
+void putpixel(int x, int y, COLORREF color)
+{
+	SetPixel(hdcMain, x, y, color);
+}
+
+void clrscr(COLORREF color)
 {
 	HBRUSH brush = CreateSolidBrush(color);
 	RECT rect;
@@ -63,10 +61,6 @@ void GFlush(void)
 	RedrawWindow(hWndMain, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 }
 
-Renderer renderer;
-PhysicsWorld world;
-Circle circle(Vec2d(0, 0), Vec2d(20, 30), 1, 5, 0xFFFFFF);
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	HDC hdc;
@@ -76,47 +70,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_TIMER:
 	{
-		switch (wParam)
-		{
-		case physTimer:
-		{
-			for(int i = 0; i < 10; i++)	world.Step(1);
-			break;
-		}
-		case graphTimer:
-		{
-			GFlush();
-			break;
-		}
-		}
+		OnTimer(wParam);
 		break;
 	}
 	case WM_CREATE:
 	{
-		world.AddObject(&circle);
-		renderer.AddObject(&circle);
-		SetTimer(hWnd, physTimer, 10, NULL);
-		SetTimer(hWnd, graphTimer, 1, NULL);
-		clrscr();
+		OnCreate(hWnd);
 		break;
 	}
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-	case WM_ERASEBKGND:
+	case WM_KEYDOWN:
 	{
+		OnKeyPress(wParam);
+		break;
+	}
+	case WM_CHAR:
+	{
+		OnCharPress(hWnd, wParam);
 		break;
 	}
 	case WM_PAINT:
 	{
-		clrscr();
-		renderer.DrawGrid(hdcMain);
-		renderer.drawAll();
-		renderer.setPosition(circle.Position);
+		OnDraw();
 		hdc = BeginPaint(hWnd, &ps);
 		BitBlt(hdc, 0, 0, Width, Height, hdcMain, 0, 0, SRCCOPY);
 		EndPaint(hWnd, &ps);
 		break;
+	}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		return 0;
 	}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);

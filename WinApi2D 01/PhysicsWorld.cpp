@@ -16,10 +16,24 @@ void PhysicsWorld::RemoveObject(Object* object)
 void PhysicsWorld::Step(double dtms)
 {
 	dtms /= 1000;
+	Vec2d r;
+	double distsqr;
 	for (Object* obj : m_objects)
 	{
-		obj->Force += obj->mass * m_gravity;
 
+		for (Object* _obj : m_objects)
+		{
+			if (obj == _obj) continue;
+
+			r = _obj->Position - obj->Position;
+			distsqr = lengthSquared(r);
+
+			normalize(r);
+
+			obj->Force += G * obj->mass * _obj->mass / distsqr * r;
+		}
+		//obj->Force += obj->mass * m_gravity - obj->Position;
+		
 		obj->Velocity += obj->Force / obj->mass * dtms;
 		obj->Position += obj->Velocity * dtms;
 

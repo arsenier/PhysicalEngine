@@ -14,6 +14,7 @@ private:
 	std::vector<Object*> m_objects;
 	Vec2d camera;
 	double scale;
+	double mul;
 
 public:
 	Renderer();
@@ -23,8 +24,13 @@ public:
 
 	void move(Vec2d);
 	void setPosition(Vec2d pos);
+	void zoom(double zoom);
+	void setScale(double _scale);
+	
+	double getScale();
+	double getMovRate();
 
-	void DrawGrid(HDC, int = 10);
+	void DrawGrid(int = 10);
 	void AddObject(Object* object);
 	void RemoveObject(Object* object);
 	void drawAll();

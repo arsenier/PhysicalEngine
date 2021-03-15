@@ -13,7 +13,8 @@ double Renderer::T(double scalar)
 Renderer::Renderer()
 {
 	camera = Vec2d(0, 0);
-	scale = 2;
+	scale = 1;
+	mul = 10;
 }
 
 void Renderer::move(Vec2d offset)
@@ -26,21 +27,32 @@ void Renderer::setPosition(Vec2d pos)
 	camera = pos;
 }
 
-void Renderer::DrawGrid(HDC hdc, int resolution)
-{/*
-	int i;
-	setcolor(64, 64, 64);
-	for (i = 10; i < vstubWidthG; i += 10) {
-		putline(i, 0, i, vstubHeightG);
-	}
-	for (i = 10; i < vstubHeightG; i += 10) {
-		putline(0, i, vstubWidthG, i);
-	}
-	setcolor(96, 96, 96);
-	putline(vstubWidthG / 2, 0, vstubWidthG / 2, vstubHeightG);
-	drawline(0, vstubHeightG / 2, vstubWidthG, vstubHeightG / 2);*/
+void Renderer::zoom(double zoom)
+{
+	scale *= zoom;
+}
 
+void Renderer::setScale(double _scale)
+{
+	scale = _scale;
+}
+
+double Renderer::getScale()
+{
+	return scale;
+}
+
+double Renderer::getMovRate()
+{
+	return mul/scale;
+}
+
+void Renderer::DrawGrid(int resolution)
+{
 	resolution *= scale;
+	
+	while (resolution < 4) resolution *= 10;
+
 	setcolor(0x606060);
 
 	Vec2d origin(0,0);
