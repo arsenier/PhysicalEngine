@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Renderer.h"
 class Circle :
     virtual public Object
 {
@@ -11,9 +12,11 @@ public:
         this->r = _r;
     }
 
-    void draw()
+    void draw(Renderer& renderer)
     {
-        putarc(Position[0], Position[1], r, 0, Math::TWO_PI);
+        setcolor(color);
+        Vec2d temp = renderer.T(Position);
+        putarc(temp[0], temp[1], renderer.T(r), 0, Math::TWO_PI);
     }
 };
 

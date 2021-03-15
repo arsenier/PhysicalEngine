@@ -1,22 +1,32 @@
 #include "draw.h"
 #include <math.h>
+#include "Circle.h"
+#include "PhysicsWorld.h"
 
 HWND hWndMain;
 HDC hdcMain;
 HBITMAP hbmMain;
 enum
 {
-	physTimer = 1
+	physTimer = 1,
+	graphTimer
 };
 
-void setcolor(COLORREF color)
+void setcolor(COLORREF color, COLORREF fill)
 {
 	HPEN hpen;
+	HBRUSH hbrush;
 	hpen = CreatePen(PS_SOLID, 0, color);
 	hpen = (HPEN)SelectObject(hdcMain, hpen);
+	hbrush = CreateSolidBrush(fill);
+	hbrush = (HBRUSH)SelectObject(hdcMain, hbrush);
 	if (hpen != NULL)
 	{
 		DeleteObject(hpen);
+	}
+	if (hbrush != NULL)
+	{
+		DeleteObject(hbrush);
 	}
 }
 
@@ -45,13 +55,17 @@ void clrscr(COLORREF color = 0x222222)
 	rect.right = Width;
 	rect.bottom = Height;
 	FillRect(hdcMain, &rect, brush);
-	RedrawWindow(hWndMain, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+	//RedrawWindow(hWndMain, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 }
 
 void GFlush(void)
 {
 	RedrawWindow(hWndMain, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 }
+
+Renderer renderer;
+PhysicsWorld world;
+Circle circle(Vec2d(0, 0), Vec2d(20, 30), 1, 5, 0xFFFFFF);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -62,24 +76,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_TIMER:
 	{
-		setcolor(0x0000FF);
-		putline(20, 30, 50, 60);
-		putline(205, 300, 50, 60);
-		//SetPixel(hdcMain, 60, 60, 0xFFFFFF);
-		GFlush();
+		switch (wParam)
+		{
+		case physTimer:
+		{
+			for(int i = 0; i < 10; i++)	world.Step(1);
+			break;
+		}
+		case graphTimer:
+		{
+			GFlush();
+			break;
+		}
+		}
 		break;
 	}
 	case WM_CREATE:
 	{
-		SetTimer(hWnd, physTimer, timeStepMilliseconds, NULL);
+		world.AddObject(&circle);
+		renderer.AddObject(&circle);
+		SetTimer(hWnd, physTimer, 10, NULL);
+		SetTimer(hWnd, graphTimer, 1, NULL);
 		clrscr();
 		break;
 	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
+	case WM_ERASEBKGND:
+	{
+		break;
+	}
 	case WM_PAINT:
 	{
+		clrscr();
+		renderer.DrawGrid(hdcMain);
+		renderer.drawAll();
+		renderer.setPosition(circle.Position);
 		hdc = BeginPaint(hWnd, &ps);
 		BitBlt(hdc, 0, 0, Width, Height, hdcMain, 0, 0, SRCCOPY);
 		EndPaint(hWnd, &ps);
@@ -87,6 +120,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+void drawTest()
+{
+
+	setcolor(0x0000FF);
+	putline(20, 30, 50, 60);
+	putline(205, 300, 50, 60);
+
+	POINT a, b, c;
+	a.x = 20;
+	a.y = 50;
+	b.x = 200;
+	b.y = 49;
+	c.x = 300;
+	c.y = 100;
+
+	POINT arr[] = { a, b, c };
+
+	setcolor(0xFFFFFF, 0xFFFFFF);
+	Polygon(hdcMain, arr, 3);
 }
 
 int WINAPI WinMain(

@@ -3,6 +3,9 @@
 #include <gmtl/gmtl.h>
 #include <Windows.h>
 #include "draw.h"
+//#include "Renderer.h"
+
+class Renderer;
 
 using namespace gmtl;
 
@@ -24,8 +27,10 @@ public:
 	Object(Object& object);
 	Object(Vec2d _Position, Vec2d _Velocity = Vec2d(0, 0), double mass = 1, COLORREF color = 0xFFFFFF);
 
+	void move(Vec2d);
+
 	virtual ~Object() {}
 
-	virtual void draw() = 0;
+	virtual void draw(Renderer& renderer) = 0;
 };
 

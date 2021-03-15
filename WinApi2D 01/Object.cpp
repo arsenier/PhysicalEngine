@@ -28,3 +28,8 @@ Object::Object(Vec2d _Position, Vec2d _Velocity, double _mass, COLORREF _color)
 	this->mass = _mass;
 	this->color = _color;
 }
+
+void Object::move(Vec2d offset)
+{
+	Position += offset;
+}

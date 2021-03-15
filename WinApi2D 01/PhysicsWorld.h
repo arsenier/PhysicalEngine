@@ -14,6 +14,6 @@ public:
 	void AddObject(Object* object);
 	void RemoveObject(Object* object);
 
-	void Step(double dt);
+	void Step(double dtms);
 };
 
