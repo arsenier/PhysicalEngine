@@ -3,6 +3,7 @@
 #include <gmtl/gmtl.h>
 #include <Windows.h>
 #include "draw.h"
+#include "Collider.h"
 //#include "Renderer.h"
 
 class Renderer;
@@ -17,6 +18,9 @@ public:
 	Vec2d Force;
 
 	double mass;
+
+	Collider* Collider;
+	Transform* Transform;
 
 	COLORREF color;
 	

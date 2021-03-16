@@ -3,6 +3,7 @@
 #include <gmtl/gmtl.h>
 #include <vector>
 #include "Object.h"
+#include "Collider.h"
 
 class PhysicsWorld
 {
@@ -16,5 +17,6 @@ public:
 	void RemoveObject(Object* object);
 
 	void Step(double dtms);
+	void ResolveCollisions(float);
 };
 

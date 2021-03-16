@@ -18,6 +18,9 @@ void PhysicsWorld::Step(double dtms)
 	dtms /= 1000;
 	Vec2d r;
 	double distsqr;
+	
+	//ResolveCollisions(dtms)
+	
 	for (Object* obj : m_objects)
 	{
 
@@ -39,4 +42,33 @@ void PhysicsWorld::Step(double dtms)
 
 		obj->Force = Vec2d(0, 0);
 	}
+
+
+}
+
+void PhysicsWorld::ResolveCollisions(float dt)
+{
+	std::vector<Collision> collisions;
+	for (Object* a : m_objects) {
+		for (Object* b : m_objects) {
+			if (a == b) break;
+
+			if (!a->Collider
+				|| !b->Collider)
+			{
+				continue;
+			}
+
+			CollisionPoints points = a->Collider->TestCollision(
+				a->Transform,
+				b->Collider,
+				b->Transform);
+
+			if (points.HasCollision) {
+				collisions.emplace_back(a, b, points);
+			}
+		}
+	}
+
+	// Solve collisions
 }
