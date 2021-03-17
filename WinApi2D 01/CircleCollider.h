@@ -2,7 +2,6 @@
 #include "Collider.h"
 #include "PlaneCollider.h"
 
-
 struct CircleCollider
 	: Collider
 {

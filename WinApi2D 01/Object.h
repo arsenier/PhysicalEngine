@@ -3,7 +3,7 @@
 #include <gmtl/gmtl.h>
 #include <Windows.h>
 #include "draw.h"
-#include "Collider.h"
+//#include "Collider.h"
 //#include "Renderer.h"
 
 class Renderer;
@@ -19,8 +19,8 @@ public:
 
 	double mass;
 
-	Collider* Collider;
-	Transform* Transform;
+	/*Collider* Collider;
+	Transform* Transform;*/
 
 	COLORREF color;
 	

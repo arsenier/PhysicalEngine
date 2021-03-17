@@ -3,7 +3,7 @@
 #include <gmtl/gmtl.h>
 #include <vector>
 #include "Object.h"
-#include "Collider.h"
+//#include "Collider.h"
 
 class PhysicsWorld
 {

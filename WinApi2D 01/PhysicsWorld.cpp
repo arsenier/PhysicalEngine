@@ -46,29 +46,29 @@ void PhysicsWorld::Step(double dtms)
 
 }
 
-void PhysicsWorld::ResolveCollisions(float dt)
-{
-	std::vector<Collision> collisions;
-	for (Object* a : m_objects) {
-		for (Object* b : m_objects) {
-			if (a == b) break;
-
-			if (!a->Collider
-				|| !b->Collider)
-			{
-				continue;
-			}
-
-			CollisionPoints points = a->Collider->TestCollision(
-				a->Transform,
-				b->Collider,
-				b->Transform);
-
-			if (points.HasCollision) {
-				collisions.emplace_back(a, b, points);
-			}
-		}
-	}
-
-	// Solve collisions
-}
+//void PhysicsWorld::ResolveCollisions(float dt)
+//{
+//	std::vector<Collision> collisions;
+//	for (Object* a : m_objects) {
+//		for (Object* b : m_objects) {
+//			if (a == b) break;
+//
+//			if (!a->Collider
+//				|| !b->Collider)
+//			{
+//				continue;
+//			}
+//
+//			CollisionPoints points = a->Collider->TestCollision(
+//				a->Transform,
+//				b->Collider,
+//				b->Transform);
+//
+//			if (points.HasCollision) {
+//				collisions.emplace_back(a, b, points);
+//			}
+//		}
+//	}
+//
+//	// Solve collisions
+//}
