@@ -28,7 +28,7 @@ void PhysicsWorld::Step(double dtms)
 		{
 			if (obj == _obj) continue;
 
-			r = _obj->Position - obj->Position;
+			r = _obj->transform->Position - obj->transform->Position;
 			distsqr = lengthSquared(r);
 
 			normalize(r);
@@ -38,7 +38,7 @@ void PhysicsWorld::Step(double dtms)
 		//obj->Force += obj->mass * m_gravity - obj->Position;
 		
 		obj->Velocity += obj->Force / obj->mass * dtms;
-		obj->Position += obj->Velocity * dtms;
+		obj->transform->Position += obj->Velocity * dtms;
 
 		obj->Force = Vec2d(0, 0);
 	}

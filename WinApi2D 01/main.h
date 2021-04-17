@@ -23,7 +23,7 @@ void OnCreate(const HWND& hWnd)
 {
 	for (int i = 0; i < circles.size(); i++)
 	{
-		circles[i].Position = Vec2d(rand()%100, rand()%100);
+		circles[i].transform->Position = Vec2d(rand()%100, rand()%100);
 		circles[i].Velocity = Vec2d(rand() % 10, rand() % 10);
 		circles[i].mass = 1;
 		circles[i].r = 1;
