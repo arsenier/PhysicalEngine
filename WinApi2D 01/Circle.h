@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
 #include "Renderer.h"
+#include "CircleCollider.h"
+#include "PlaneCollider.h"
 class Circle :
     virtual public Object
 {

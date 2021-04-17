@@ -9,7 +9,7 @@ struct CollisionPoints {
 	Vec2d A; // Furthest point of A into B
 	Vec2d B; // Furthest point of B into A
 	Vec2d Normal; // B – A normalized
-	float Depth;    // Length of B – A
+	double Depth;    // Length of B – A
 	bool HasCollision;
 };
 

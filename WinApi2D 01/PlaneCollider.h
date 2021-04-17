@@ -1,12 +1,14 @@
 #pragma once
 #include "Collider.h"
-#include "CircleCollider.h"
+//#include "CircleCollider.h"
+
+struct CircleCollider;
 
 struct PlaneCollider
 	: Collider
 {
 	Vec2d Plane;
-	float Distance;
+	double Distance;
 
 	CollisionPoints TestCollision(
 		const Transform* transform,
