@@ -37,7 +37,8 @@ void putarc(int x, int y, int radius, float StartAngle, float SweepAngle)
 	else {
 		Arc(hdcMain, x - radius, y - radius, x + radius, y + radius, (int)(50000.0 * cos(StartAngle)), -(int)(50000.0 * sin(StartAngle)), (int)(50000.0 * cos(StartAngle + SweepAngle)), -(int)(50000.0 * sin(StartAngle + SweepAngle)));
 	}
-}
+} //  DirectDraw
+// GDI+
 
 void putpixel(int x, int y, COLORREF color)
 {

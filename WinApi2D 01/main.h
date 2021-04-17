@@ -10,6 +10,8 @@ enum
 	graphTimer
 };
 
+int physStep = 0;
+
 Renderer renderer;
 PhysicsWorld world;
 
@@ -27,14 +29,15 @@ void OnCreate(const HWND& hWnd)
 		circles[i].r = 1;
 		circles[i].color = 0xFFFFFF;
 
-		//world.AddObject(&circles[i]);
-		//renderer.AddObject(&circles[i]);
+		world.AddObject(&circles[i]);
+		renderer.AddObject(&circles[i]);
 	}
 
 	world.AddObject(&circle);
 	renderer.AddObject(&circle);
 	world.AddObject(&circle2);
 	renderer.AddObject(&circle2);
+	SetTimer(hWnd, physTimer, 10, NULL);
 	SetTimer(hWnd, graphTimer, 1, NULL);
 	clrscr();
 }
@@ -45,7 +48,7 @@ void OnTimer(const WPARAM& wParam)
 	{
 	case physTimer:
 	{
-		for (int i = 0; i < 10; i++)	world.Step(1);
+		for (int i = 0; i < physStep; i++)	world.Step(1);
 		break;
 	}
 	case graphTimer:
@@ -88,11 +91,19 @@ void OnCharPress(const HWND& hWnd, const WPARAM& wParam)
 	case '-':
 		renderer.zoom(0.90909090909);
 		break;
+	case '3':
+		physStep = 100;
+		break;
+	case '2':
+		physStep = 10;
+		break;
 	case '1':
-		SetTimer(hWnd, physTimer, 10, NULL);
+		physStep = 1;
+		//SetTimer(hWnd, physTimer, 10, NULL);
 		break;
 	case '0':
-		KillTimer(hWnd, physTimer);
+		physStep = 0;
+		//KillTimer(hWnd, physTimer);
 		break;
 	}
 }
