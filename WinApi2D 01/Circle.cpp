@@ -7,7 +7,10 @@ Circle::Circle(Vec2d _Position, Vec2d _Velocity, double _mass, int _r, COLORREF 
     this->r = _r;
 }
 
-Circle::Circle() {}
+Circle::Circle() {
+    this->circleCollider = new CircleCollider;
+    this->collider = this->circleCollider;
+}
 
 Circle::~Circle()
 {

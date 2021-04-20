@@ -23,8 +23,9 @@ struct CircleCollider
 		const CircleCollider* sphere,
 		const Transform* sphereTransform) const override
 	{
-		return algo::FindSphereSphereCollisionPoints(
-			this, transform, sphere, sphereTransform);
+		/*return algo::FindSphereSphereCollisionPoints(
+			this, transform, sphere, sphereTransform);*/
+		return {};
 	}
 
 	CollisionPoints TestCollision(
@@ -32,7 +33,8 @@ struct CircleCollider
 		const PlaneCollider* plane,
 		const Transform* planeTransform) const override
 	{
-		return algo::FindSpherePlaneCollisionPoints(
-			this, transform, plane, planeTransform);
+		/*return algo::FindSpherePlaneCollisionPoints(
+			this, transform, plane, planeTransform);*/
+		return {};
 	}
 };
