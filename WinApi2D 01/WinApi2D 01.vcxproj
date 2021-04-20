@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Algo.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="main.h" />
@@ -152,10 +153,16 @@
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Algo.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="CircleCollider.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionPointsAndTransform.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsWorld.h" />
+    <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

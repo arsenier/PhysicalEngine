@@ -13,7 +13,7 @@ enum
 Renderer renderer;
 PhysicsWorld world;
 
-std::vector<Circle> circles(10);
+std::vector<Circle> circles(3);
 Circle circle(Vec2d(10, 0), Vec2d(-5, 0), 100, 5, 0xFFFFFF);
 Circle circle2(Vec2d(0, 100), Vec2d(5, 0)*10.0, 10, 5, 0x0000FF);
 
@@ -21,14 +21,14 @@ void OnCreate(const HWND& hWnd)
 {
 	for (int i = 0; i < circles.size(); i++)
 	{
-		circles[i].Position = Vec2d(rand()%100, rand()%100);
+		circles[i].transform->Position = Vec2d(rand()%100, rand()%100);
 		circles[i].Velocity = Vec2d(rand() % 10, rand() % 10);
 		circles[i].mass = 1;
-		circles[i].r = 1;
+		circles[i].cirlceCollider->Radius = 1;
 		circles[i].color = 0xFFFFFF;
 
-		//world.AddObject(&circles[i]);
-		//renderer.AddObject(&circles[i]);
+		world.AddObject(&circles[i]);
+		renderer.AddObject(&circles[i]);
 	}
 
 	world.AddObject(&circle);
