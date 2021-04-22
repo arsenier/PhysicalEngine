@@ -25,7 +25,6 @@ public:
 	
 	void Nullify();
 
-public:
 	Object();
 	Object(Object& object);
 	Object(Vec2d _Position, Vec2d _Velocity = Vec2d(0, 0), double mass = 1, COLORREF color = 0xFFFFFF);

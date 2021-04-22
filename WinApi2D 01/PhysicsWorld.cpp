@@ -13,11 +13,36 @@ void PhysicsWorld::RemoveObject(Object* object)
 	m_objects.erase(itr);
 }
 
+void PhysicsWorld::ResolveCollision(double dtms) {
+	std::vector<Collision> collisions;
+	for (Object* a : m_objects) {
+		for (Object* b : m_objects) {
+			if (a == b) break;
+
+			if (!a->collider
+				|| !b->collider)
+			{
+				continue;
+			}
+
+			CollisionPoints points = a->collider->TestCollision(
+				a->transform,
+				b->collider,
+				b->transform);
+
+			if (points.HasCollision) {
+				collisions.emplace_back(Collision(a, b, points));
+			}
+		}
+	}
+}
+
 void PhysicsWorld::Step(double dtms)
 {
 	dtms /= 5000;
 	Vec2d r;
 	double distsqr;
+	std::vector<Collision> collisions; //Temp потом удалим. ƒл€ быстрой отладки
 	for (Object* obj : m_objects)
 	{
 
@@ -33,7 +58,7 @@ void PhysicsWorld::Step(double dtms)
 			obj->Force += G * obj->mass * _obj->mass / distsqr * r;
 			auto test = obj->collider->TestCollision(obj->transform, _obj->collider, _obj->transform);
 			if (test.HasCollision) {
-				int i = 15; //строка только дл€ дебага (—тавишь красную точку и, когда происходит коллизи€, программа останавливаетс€)
+				collisions.emplace_back(Collision(obj, _obj, test));
 			}
 		}
 		//obj->Force += obj->mass * m_gravity - obj->Position;
@@ -41,6 +66,7 @@ void PhysicsWorld::Step(double dtms)
 		obj->Velocity += obj->Force / obj->mass * dtms;
 		obj->transform->Position += obj->Velocity * dtms;
 
-		obj->Force = Vec2d(0, 0);
+		obj->Force = Vec2d(0, 0);	
 	}
+	solver.Solve(collisions, dtms);
 }

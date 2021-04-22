@@ -151,6 +151,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Solver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algo.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Solver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

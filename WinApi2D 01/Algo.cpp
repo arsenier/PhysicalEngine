@@ -12,11 +12,11 @@ CollisionPoints FindCircleCircleCollisionPoints(
 	auto ya = ta->Position.mData[1];
 	auto xb = tb->Position.mData[0];
 	auto yb = tb->Position.mData[1];
-	/*result.HasCollision = r > ((ta->Position.mData[0] + tb->Position.mData[0])* (ta->Position.mData[0] + tb->Position.mData[0]))
-		+ ((ta->Position.mData[1] + tb->Position.mData[1]) * (ta->Position.mData[1] + tb->Position.mData[1]));*/
 	result.HasCollision = r > (xb - xa) * (xb - xa) + (yb - ya) * (yb - ya);
 	if (result.HasCollision) {
-		int i = 16;
+		Vec2d Normal = ta->Position - tb->Position;
+		result.Normal = Normal;
+		normalize(result.Normal);
 	}
 	return result;
 }
