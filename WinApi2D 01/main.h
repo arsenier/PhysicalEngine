@@ -13,9 +13,9 @@ enum
 Renderer renderer;
 PhysicsWorld world;
 
-std::vector<Circle> circles(3);
-Circle circle(Vec2d(10, 0), Vec2d(-5, 0), 100, 5, 0xFFFFFF);
-Circle circle2(Vec2d(0, 100), Vec2d(5, 0)*10.0, 10, 5, 0x0000FF);
+std::vector<Circle> circles(10);
+Circle circle(Vec2d(10, 0), Vec2d(-1, 0), 150, 15, 0xFFFFFF);
+Circle circle2(Vec2d(0, 50), Vec2d(1, 0)*10.0, 100, 10, 0x0000FF);
 
 void OnCreate(const HWND& hWnd)
 {
@@ -35,6 +35,7 @@ void OnCreate(const HWND& hWnd)
 	renderer.AddObject(&circle);
 	world.AddObject(&circle2);
 	renderer.AddObject(&circle2);
+	renderer.setScale(4);
 	SetTimer(hWnd, graphTimer, 1, NULL);
 	clrscr();
 }
@@ -102,5 +103,5 @@ void OnDraw()
 	clrscr();
 	renderer.DrawGrid();
 	renderer.drawAll();
-	//renderer.setPosition(circle.Position);
+	renderer.setPosition(circle.transform->Position);
 }
