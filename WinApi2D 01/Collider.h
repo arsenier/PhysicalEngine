@@ -3,6 +3,7 @@
 
 struct CircleCollider;
 struct PlaneCollider;
+struct RectCollider;
 
 struct Collider {
 	virtual CollisionPoints TestCollision(
@@ -17,6 +18,6 @@ struct Collider {
 
 	virtual CollisionPoints TestCollision(
 		const Transform* transform,
-		const PlaneCollider* plane,
+		const RectCollider* rect,
 		const Transform* planeTransform) const = 0;
 };

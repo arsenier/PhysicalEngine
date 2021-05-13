@@ -2,11 +2,11 @@
 #include "Collider.h"
 #include "Algo.h"
 
-struct CircleCollider
+struct RectCollider
 	: Collider
 {
-	//Vec2d Center;
-	int Radius;
+	double width;
+	double height;
 
 	CollisionPoints TestCollision(
 		const Transform* transform,
@@ -20,12 +20,13 @@ struct CircleCollider
 		const Transform* transform,
 		const CircleCollider* sphere,
 		const Transform* sphereTransform) const override {
-		return FindCircleCircleCollisionPoints(this, transform, sphere, sphereTransform);
+		//return FindCircleCircleCollisionPoints(this, transform, sphere, sphereTransform);
+		return FindCircleRectCollisionPoints(sphere, sphereTransform, this, transform);
 	}
 
 	CollisionPoints TestCollision(
 		const Transform* transform,
-		const RectCollider* plane,
+		const RectCollider* rect,
 		const Transform* planeTransform) const override
 	{
 		/*return algo::FindSpherePlaneCollisionPoints(

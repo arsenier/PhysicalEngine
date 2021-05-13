@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 #include "Circle.h"
+#include "Rect.h"
 #include <vector>
 
 int count = -1;
@@ -18,6 +19,8 @@ PhysicsWorld world;
 std::vector<Circle> circles(10);
 Circle circle(Vec2d(10, 0), Vec2d(-1, 0), 150, 15, 0xFFFFFF);
 Circle circle2(Vec2d(0, 50), Vec2d(1, 0)*10.0, 100, 10, 0x0000FF);
+Rect rect(Vec2d(-30, -30), 25, 25, Vec2d(0, 0), 100, 0xFFFFFF);
+
 
 void OnCreate(const HWND& hWnd)
 {
@@ -37,6 +40,8 @@ void OnCreate(const HWND& hWnd)
 	renderer.AddObject(&circle);
 	world.AddObject(&circle2);
 	renderer.AddObject(&circle2);
+	world.AddObject(&rect);
+	renderer.AddObject(&rect);
 	renderer.setScale(4);
 	SetTimer(hWnd, graphTimer, 1, NULL);
 	clrscr();
@@ -79,7 +84,7 @@ void OnKeyPress(const WPARAM& wParam)
 		world.Step(10);
 		break;
 	case 0x4E://Press 'N' - Next
-		if (++count == circles.size()) count = -1;
+		if (++count == world.getObjects().size()) count = -1;
 		break;
 	}
 }
@@ -109,5 +114,8 @@ void OnDraw()
 	renderer.DrawGrid();
 	renderer.drawAll();
 	if (count == -1);
-	else renderer.setPosition(circles[count].transform->Position);
+	else {
+		auto temp = world.getObjects()[count]->transform->Position;
+		renderer.setPosition(temp);
+	}
 }

@@ -21,6 +21,8 @@ public:
 
 	void ResolveCollision(double dtms);
 
+	std::vector<Object*> getObjects();
+
 	void Step(double dtms);
 };
 

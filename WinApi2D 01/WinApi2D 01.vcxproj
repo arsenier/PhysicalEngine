@@ -164,6 +164,8 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlaneCollider.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="RectCollider.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Solver.h" />
   </ItemGroup>

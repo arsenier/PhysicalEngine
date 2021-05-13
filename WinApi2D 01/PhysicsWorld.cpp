@@ -70,3 +70,7 @@ void PhysicsWorld::Step(double dtms)
 	}
 	solver.Solve(collisions, dtms);
 }
+
+std::vector<Object*> PhysicsWorld::getObjects() {
+	return m_objects;
+}
