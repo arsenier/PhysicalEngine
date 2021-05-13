@@ -58,7 +58,7 @@ void Renderer::DrawGrid(int resolution)
 	Vec2d origin(0,0);
 	Vec2d Torigin = T(origin);
 
-	for (int x = (int)Torigin[0] % resolution; x <= Height; x += resolution)
+	for (int x = (int)Torigin[0] % resolution; x <= Width; x += resolution)
 	{
 		putline(x, 0, x, Height);
 	}
@@ -68,7 +68,7 @@ void Renderer::DrawGrid(int resolution)
 	}
 	resolution *= 5;
 	setcolor(0xA0A0A0);
-	for (int x = (int)Torigin[0] % resolution; x <= Height; x += resolution)
+	for (int x = (int)Torigin[0] % resolution; x <= Width; x += resolution)
 	{
 		putline(x, 0, x, Height);
 	}

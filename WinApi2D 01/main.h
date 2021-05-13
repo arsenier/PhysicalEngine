@@ -4,6 +4,8 @@
 #include "Circle.h"
 #include <vector>
 
+int count = -1;
+
 enum
 {
 	physTimer = 1,
@@ -74,7 +76,10 @@ void OnKeyPress(const WPARAM& wParam)
 		renderer.move(Vec2d(renderer.getMovRate(), 0));
 		break;
 	case VK_SPACE:
-		world.Step(1);
+		world.Step(10);
+		break;
+	case 0x4E://Press 'N' - Next
+		if (++count == circles.size()) count = -1;
 		break;
 	}
 }
@@ -103,5 +108,6 @@ void OnDraw()
 	clrscr();
 	renderer.DrawGrid();
 	renderer.drawAll();
-	renderer.setPosition(circle.transform->Position);
+	if (count == -1);
+	else renderer.setPosition(circles[count].transform->Position);
 }

@@ -2,8 +2,8 @@
 
 #include <Windows.h>
 
-const int Height = 800;
-const int Width = 800;
+const int Height = 700;
+const int Width = 1400;
 
 //int timeStepMilliseconds = 10;
 

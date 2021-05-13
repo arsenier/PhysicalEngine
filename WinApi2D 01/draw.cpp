@@ -155,8 +155,8 @@ int WINAPI WinMain(
 		return 0;
 	}
 
-	int x = 200;
-	int y = 200;
+	int x = 50;
+	int y = 100;
 	RECT rect;
 	rect.left = x;
 	rect.top = y;
