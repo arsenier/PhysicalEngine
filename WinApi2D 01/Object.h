@@ -13,13 +13,14 @@ using namespace gmtl;
 class Object
 {
 public:
-	Vec2d Velocity;
+	//Vec2d Velocity;
 	Vec2d Force;
 
 	Collider* collider;
 	Transform* transform;
 
 	double mass;
+	double invMass;
 
 	COLORREF color;
 	

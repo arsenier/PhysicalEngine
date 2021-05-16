@@ -42,13 +42,34 @@ CollisionPoints FindCirclePlaneCollisionPoints(
 	else if (-b < (2.0f * na)) flagCollision = (4.0f * na * c - b * b) < 0;
 	else flagCollision = na + b + c < 0;
 
+	CollisionPoints result;
+
+	result.HasCollision = flagCollision;
+
 	if (flagCollision) {
-		int r = 15;
-		r++;
+		if (A.mData[0] == B.mData[0]) {
+
+			if (ta->Position.mData[0] <= A.mData[0]) {
+				if (ta->Velocity.mData[0] > 0) { result.Normal = Vec2d(-ta->Velocity.mData[0], ta->Velocity.mData[1]); normalize(result.Normal);}
+				else result.Normal = Vec2d(0, 0);
+			}
+			else {
+				if (ta->Velocity.mData[0] < 0) { result.Normal = Vec2d(-ta->Velocity.mData[0], ta->Velocity.mData[1]); normalize(result.Normal);}
+				else result.Normal = Vec2d(0, 0);
+			}
+		}
+		else if (A.mData[1] == B.mData[1]) {
+			if (ta->Position.mData[1] <= A.mData[1]) {
+				if (ta->Velocity.mData[1] > 0) { result.Normal = Vec2d(ta->Velocity.mData[0], -ta->Velocity.mData[1]); normalize(result.Normal);}
+				else result.Normal = Vec2d(0, 0);
+			}
+			else {
+				if (ta->Velocity.mData[1] < 0) { result.Normal = Vec2d(ta->Velocity.mData[0], -ta->Velocity.mData[1]); normalize(result.Normal);}
+				else result.Normal = Vec2d(0, 0);
+			}
+		}
 	}
 
-	CollisionPoints result;
-	result.HasCollision = flagCollision;
 	return result;
 
 }
@@ -60,11 +81,11 @@ CollisionPoints FindCircleRectCollisionPoints(
 	CollisionPoints result;
 	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0], tb->Position.mData[1]), Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1]));
 	if (result.HasCollision) return result;
-	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1]), Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1] + b->height));
+	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1]), Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1] - b->height));
 	if (result.HasCollision) return result;
-	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0], tb->Position.mData[1] + b->height), Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1] + b->height));
+	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0], tb->Position.mData[1] - b->height), Vec2d(tb->Position.mData[0] + b->width, tb->Position.mData[1] - b->height));
 	if (result.HasCollision) return result;
-	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0], tb->Position.mData[1] + b->height), Vec2d(tb->Position.mData[0], tb->Position.mData[1]));
+	result = FindCirclePlaneCollisionPoints(a, ta, Vec2d(tb->Position.mData[0], tb->Position.mData[1] - b->height), Vec2d(tb->Position.mData[0], tb->Position.mData[1]));
 	if (result.HasCollision) return result;
 	return result;
 

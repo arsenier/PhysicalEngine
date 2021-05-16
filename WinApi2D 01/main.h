@@ -16,19 +16,20 @@ enum
 Renderer renderer;
 PhysicsWorld world;
 
-std::vector<Circle> circles(10);
-Circle circle(Vec2d(10, 0), Vec2d(-1, 0), 150, 15, 0xFFFFFF);
-Circle circle2(Vec2d(0, 50), Vec2d(1, 0)*10.0, 100, 10, 0x0000FF);
-Rect rect(Vec2d(-30, -30), 25, 25, Vec2d(0, 0), 100, 0xFFFFFF);
-
+std::vector<Circle> circles(2);
+//Circle circle(Vec2d(10, 0), Vec2d(-1, 0), 150, 15, 0xFFFFFF);
+//Circle circle2(Vec2d(0, 50), Vec2d(1, 0)*10.0, 100, 10, 0x0000FF);
+Rect rect(Vec2d(-30, -30), 25, 25, Vec2d(0, 0), 0, 0xFFFFFF);
+Circle circle3(Vec2d(-18, -43), Vec2d(1, 0.5) * 30.0, 100, 1, 0x0060B3);
 
 void OnCreate(const HWND& hWnd)
 {
 	for (int i = 0; i < circles.size(); i++)
 	{
 		circles[i].transform->Position = Vec2d(rand()%100, rand()%100);
-		circles[i].Velocity = Vec2d(rand() % 10, rand() % 10);
+		circles[i].transform->Velocity = Vec2d(rand() % 10, rand() % 10);
 		circles[i].mass = 1;
+		circles[i].invMass = 1;
 		circles[i].cirlceCollider->Radius = 1;
 		circles[i].color = 0xFFFFFF;
 
@@ -36,10 +37,12 @@ void OnCreate(const HWND& hWnd)
 		renderer.AddObject(&circles[i]);
 	}
 
-	world.AddObject(&circle);
+	/*world.AddObject(&circle);
 	renderer.AddObject(&circle);
 	world.AddObject(&circle2);
-	renderer.AddObject(&circle2);
+	renderer.AddObject(&circle2);*/
+	world.AddObject(&circle3);
+	renderer.AddObject(&circle3);
 	world.AddObject(&rect);
 	renderer.AddObject(&rect);
 	renderer.setScale(4);

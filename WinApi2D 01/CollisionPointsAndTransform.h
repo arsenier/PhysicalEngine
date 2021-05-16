@@ -14,5 +14,6 @@ struct CollisionPoints {
 struct Transform { // Describes an objects location
 	Vec2d Position;
 	Vec2d Scale;
+	Vec2d Velocity;
 	//quaternion Rotation;
 };

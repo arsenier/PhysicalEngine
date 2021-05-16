@@ -55,7 +55,7 @@ public:
         //Try 4 ======================================
 
         Vec2d tempLT = renderer.T(Vec2d(this->transform->Position.mData[0], this->transform->Position.mData[1]));
-        Vec2d tempRB = renderer.T(Vec2d(this->transform->Position.mData[0] + this->rectCollider->width, this->transform->Position.mData[1] + this->rectCollider->height));
+        Vec2d tempRB = renderer.T(Vec2d(this->transform->Position.mData[0] + this->rectCollider->width, this->transform->Position.mData[1] - this->rectCollider->height));
         double tempWidth = fabs(tempLT.mData[0] - tempRB[0]);
         double tempHeight = fabs(tempLT.mData[1] - tempRB[1]);
         if (tempWidth > 1 && tempHeight > 1) {

@@ -56,17 +56,19 @@ void PhysicsWorld::Step(double dtms)
 			normalize(r);
 
 			obj->Force += G * obj->mass * _obj->mass / distsqr * r;
+			
 			auto test = obj->collider->TestCollision(obj->transform, _obj->collider, _obj->transform);
 			if (test.HasCollision) {
 				collisions.emplace_back(Collision(obj, _obj, test));
 			}
 		}
 		//obj->Force += obj->mass * m_gravity - obj->Position;
-		
-		obj->Velocity += obj->Force / obj->mass * dtms;
-		obj->transform->Position += obj->Velocity * dtms;
+		if (obj->mass != 0){
+			obj->transform->Velocity += obj->Force * obj->invMass * dtms;
+			obj->transform->Position += obj->transform->Velocity * dtms;
 
-		obj->Force = Vec2d(0, 0);	
+			obj->Force = Vec2d(0, 0);
+		}
 	}
 	solver.Solve(collisions, dtms);
 }
