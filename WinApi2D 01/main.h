@@ -16,11 +16,16 @@ enum
 Renderer renderer;
 PhysicsWorld world;
 
-std::vector<Circle> circles(2);
+std::vector<Circle> circles(7);
 //Circle circle(Vec2d(10, 0), Vec2d(-1, 0), 150, 15, 0xFFFFFF);
 //Circle circle2(Vec2d(0, 50), Vec2d(1, 0)*10.0, 100, 10, 0x0000FF);
-Rect rect(Vec2d(-30, -30), 25, 25, Vec2d(0, 0), 0, 0xFFFFFF);
-Circle circle3(Vec2d(-18, -43), Vec2d(1, 0.5) * 30.0, 100, 1, 0x0060B3);
+Rect rect(Vec2d(-30, -30), 40, 40, Vec2d(0, 0), 0, 0xFFFFFF);
+Circle circle3(Vec2d(-18, -43), Vec2d(1, 0.5) * 30.0, 10, 1, 0x0060B3);
+Circle circle4(Vec2d(-25, -43), Vec2d(2, 0.5) * 30.0, 10, 1, 0x0000B3);
+Circle circle5(Vec2d(-25, -56), Vec2d(-1, 3) * 30.0, 10, 1, 0x000011);
+Circle circle6(Vec2d(-17, -68), Vec2d(5, -4) * 30.0, 10, 1, 0x001589);
+Circle circle7(Vec2d(-26, -53), Vec2d(5, -4) * 30.0, 10, 1, 0x001589);
+Circle circle8(Vec2d(-26, -40), Vec2d(5, -4) * 30.0, 10, 1, 0x001589);
 
 void OnCreate(const HWND& hWnd)
 {
@@ -42,7 +47,17 @@ void OnCreate(const HWND& hWnd)
 	world.AddObject(&circle2);
 	renderer.AddObject(&circle2);*/
 	world.AddObject(&circle3);
+	world.AddObject(&circle4);
+	world.AddObject(&circle5);
+	world.AddObject(&circle6);
+	world.AddObject(&circle7);
+	world.AddObject(&circle8);
 	renderer.AddObject(&circle3);
+	renderer.AddObject(&circle4);
+	renderer.AddObject(&circle5);
+	renderer.AddObject(&circle6);
+	renderer.AddObject(&circle7);
+	renderer.AddObject(&circle8);
 	world.AddObject(&rect);
 	renderer.AddObject(&rect);
 	renderer.setScale(4);
